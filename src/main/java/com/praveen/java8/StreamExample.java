@@ -16,6 +16,10 @@ public class StreamExample {
 		List<String> fruitList = Arrays.asList("banana", "apple", "mango", "grapes");
 		System.out.println(fruitList.stream().map(Function.identity()).collect(Collectors.joining(" | ")));
 		
+		List<Integer> numList = Arrays.asList(1, 9, 8, 5);
+		//System.out.println(numList.stream().mapToInt(num->num*5).collect(ArrayList::new, ArrayList::add, ArrayList::addAll));
+		System.out.println(numList.stream().mapToInt(num->num*5).boxed().collect(Collectors.toList()));
+		
 		
 	}
 
