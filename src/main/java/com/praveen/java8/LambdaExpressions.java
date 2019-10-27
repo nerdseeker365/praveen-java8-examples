@@ -12,6 +12,9 @@ import java.util.List;
  */
 public class LambdaExpressions {
 	public static void main(String[] args) {
+		Runnable r= () -> System.out.println("This in run method") ;
+		Thread t1 = new Thread(r);
+		t1.start();
 		Thread t = new Thread(new CodeToRun());
 		t.start();		
 		/* The above one can be written in Lambda */
@@ -21,8 +24,7 @@ public class LambdaExpressions {
 			int sum=num1+num2;
 			System.out.println(sum);
 			return sum;
-		};
-		
+		};		
 		System.out.println(ci1.add(5, 6));
 		
 		/* Usage of Comparator for sorting  Starts*/
@@ -56,8 +58,17 @@ public class LambdaExpressions {
 		System.out.println("Employee Sorting based on Name:\n"+ empList);	
 		
 		/* Usage of Comparator for sorting  Ends*/
+		
+		DisplayInterface di= (name) -> System.out.println(name) ;
+		di.display("Praveen") ;
+
 	}
 }
+
+interface DisplayInterface{
+void display(String name);
+}
+
 
 class CodeToRun implements Runnable {
 	public void run() {

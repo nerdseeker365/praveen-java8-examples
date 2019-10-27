@@ -138,6 +138,9 @@ public class FunctionalInterfaceExample {
 	    /*Supplier */
 	    Supplier<String> supplier= () -> "This is Praveen Oruganti";
 	    System.out.println(supplier.get());
+	    Supplier<Double> randomValue = () -> Math.random();
+	    System.out.println(randomValue.get()); 
+
 	    
 	    
 	    
