@@ -71,5 +71,4 @@ public class NewDateTimeApiExamples {
 		System.out.println("Months left between today and newDate : " + periodTonewDate.getMonths());
 
 	}
-
 }
