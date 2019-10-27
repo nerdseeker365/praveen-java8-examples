@@ -1,4 +1,4 @@
-package com.praveen.java8;
+package com.praveen.java8.FI;
 
 import java.util.ArrayList;
 import java.util.Collection;

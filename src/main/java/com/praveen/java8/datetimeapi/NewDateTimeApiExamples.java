@@ -1,4 +1,4 @@
-package com.praveen.java8;
+package com.praveen.java8.datetimeapi;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

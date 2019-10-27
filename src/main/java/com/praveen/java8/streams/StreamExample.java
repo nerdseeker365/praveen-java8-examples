@@ -1,4 +1,4 @@
-package com.praveen.java8;
+package com.praveen.java8.streams;
 
 import java.util.ArrayList;
 import java.util.Arrays;

@@ -1,4 +1,4 @@
-package com.praveen.java8;
+package com.praveen.java8.lambdas;
 
 import java.util.ArrayList;
 import java.util.Collections;

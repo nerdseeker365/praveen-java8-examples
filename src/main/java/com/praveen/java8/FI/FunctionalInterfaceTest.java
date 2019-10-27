@@ -1,4 +1,4 @@
-package com.praveen.java8;
+package com.praveen.java8.FI;
 
 public class FunctionalInterfaceTest implements Interface1, Interface2 {
 
