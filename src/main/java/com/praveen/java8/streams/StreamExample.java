@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.IntSummaryStatistics;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -39,6 +40,13 @@ public class StreamExample {
 		eList.add(e3);
 		eList.add(e4);
 		eList.add(e5);
+		
+		Employee1 result = eList.stream().reduce(new Employee1("", 0L, 0, ""), (emp1, emp2) -> {
+			emp1.empAge += emp2.empAge;
+			emp1.empName += emp2.empName;
+			return emp1;
+		});
+		System.out.format("name=%s; age=%s\n", result.empName, result.empAge);
 
 		eList.stream().filter(e -> e.getEmpLocation().equalsIgnoreCase("Hyderabad")).forEach(System.out::println);
 
@@ -49,10 +57,19 @@ public class StreamExample {
 		}).forEach(System.out::println);
 
 		System.out.println(eList.stream().filter(e -> e.getEmpLocation().equalsIgnoreCase("Hyderabad"))
-				.sorted((Employee1 emp1, Employee1 emp2)-> emp1.getEmpName().compareTo(emp2.getEmpName())).findFirst().get());
+				.sorted((Employee1 emp1, Employee1 emp2) -> emp1.getEmpName().compareTo(emp2.getEmpName())).findFirst()
+				.get());
 
 		System.out.println(eList.stream().filter(e -> e.getEmpName().equalsIgnoreCase("praveen"))
 				.map(Employee1::getEmpAge).findAny().orElse(0));
+
+		eList.stream().reduce((emp1, emp2) -> emp1.getEmpAge() > emp2.getEmpAge() ? e1 : e2)
+				.ifPresent(System.out::println);		
+
+		System.out.println(eList.stream().mapToInt(e -> e.getEmpAge()).sum());
+		Integer ageSum = eList.stream().reduce(0, (sum, emp) -> sum += emp.getEmpAge(), (sum1, sum2) -> sum1 + sum2);
+
+		System.out.println(ageSum);
 
 		List<List<Integer>> listOfListOfNumber = new ArrayList<>();
 		listOfListOfNumber.add(Arrays.asList(2, 4));
@@ -82,15 +99,52 @@ public class StreamExample {
 		Map<String, Set<String>> mappingBy = eList.stream().collect(Collectors.groupingBy(Employee1::getEmpLocation,
 				Collectors.mapping(Employee1::getEmpName, Collectors.toSet())));
 		System.out.println(mappingBy);
-
+		
+//		
+//		Arrays.asList("a1", "a2", "b1", "c2", "c1")
+//	    .parallelStream()
+//	    .filter(s -> {
+//	        System.out.format("filter: %s [%s]\n",
+//	            s, Thread.currentThread().getName());
+//	        return true;
+//	    })
+//	    .map(s -> {
+//	        System.out.format("map: %s [%s]\n",
+//	            s, Thread.currentThread().getName());
+//	        return s.toUpperCase();
+//	    })
+//	    .forEach(s -> System.out.format("forEach: %s [%s]\n",
+//	        s, Thread.currentThread().getName()));
+		
+		
+		Arrays.asList("a1", "a2", "b1", "c2", "c1")
+	    .parallelStream()
+	    .filter(s -> {
+	        System.out.format("filter: %s [%s]\n",
+	            s, Thread.currentThread().getName());
+	        return true;
+	    })
+	    .map(s -> {
+	        System.out.format("map: %s [%s]\n",
+	            s, Thread.currentThread().getName());
+	        return s.toUpperCase();
+	    })
+	    .sorted((s1, s2) -> {
+	        System.out.format("sort: %s <> %s [%s]\n",
+	            s1, s2, Thread.currentThread().getName());
+	        return s1.compareTo(s2);
+	    })
+	    .forEach(s -> System.out.format("forEach: %s [%s]\n",
+	        s, Thread.currentThread().getName()));
+	
 	}
 }
 
 class Employee1 {
-	private String empName;
-	private Long empId;
-	private String empLocation;
-	private int empAge;
+	public String empName;
+	public Long empId;
+	public String empLocation;
+	public int empAge;
 
 	public Employee1(String empName, Long empId, int empAge, String empLocation) {
 		super();
