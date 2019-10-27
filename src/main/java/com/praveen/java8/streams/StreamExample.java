@@ -2,7 +2,6 @@ package com.praveen.java8.streams;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.IntSummaryStatistics;
 import java.util.List;
 import java.util.Map;
@@ -50,11 +49,7 @@ public class StreamExample {
 		}).forEach(System.out::println);
 
 		System.out.println(eList.stream().filter(e -> e.getEmpLocation().equalsIgnoreCase("Hyderabad"))
-				.sorted(new Comparator<Employee1>() {
-					public int compare(Employee1 e1, Employee1 e2) {
-						return e1.getEmpName().compareToIgnoreCase(e2.getEmpName());
-					}
-				}).findFirst().get());
+				.sorted((Employee1 emp1, Employee1 emp2)-> emp1.getEmpName().compareTo(emp2.getEmpName())).findFirst().get());
 
 		System.out.println(eList.stream().filter(e -> e.getEmpName().equalsIgnoreCase("praveen"))
 				.map(Employee1::getEmpAge).findAny().orElse(0));
