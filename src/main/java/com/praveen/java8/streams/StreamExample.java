@@ -2,10 +2,11 @@ package com.praveen.java8.streams;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.IntSummaryStatistics;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.Set;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -136,6 +137,23 @@ public class StreamExample {
 	    })
 	    .forEach(s -> System.out.format("forEach: %s [%s]\n",
 	        s, Thread.currentThread().getName()));
+		
+		
+		Map<String, Employee1> empMap = new HashMap<>();
+		empMap.put("1", new Employee1( "Praveen",149903L,34,"Hyderabad"));
+		empMap.put("2", new Employee1( "Prasad",149904L,35,"Hyderabad"));
+		empMap.put("3", new Employee1( "Varma",149905L,36,"Bangalore"));
+		
+		System.out.println(empMap.entrySet().stream().map(emp->emp.getValue().empAge).collect(Collectors.minBy(Comparator.naturalOrder())));
+		
+		System.out.println(empMap.entrySet().stream().map(emp->emp.getValue().empAge).collect(Collectors.maxBy(Comparator.naturalOrder())));
+		
+		List<String> empNames=Arrays.asList("Sharma","Praveen","Varma","Krishna");
+		
+		List<String> filteredList=empNames.stream()
+				                          .filter(emp->empMap.entrySet().stream().allMatch(entry->!entry.getValue().getEmpName().equals(emp)))
+				                          .collect(Collectors.toList());
+		System.out.println(filteredList);	
 	
 	}
 }
