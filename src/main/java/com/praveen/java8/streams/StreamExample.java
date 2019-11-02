@@ -2,6 +2,7 @@ package com.praveen.java8.streams;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.IntSummaryStatistics;
@@ -154,7 +155,25 @@ public class StreamExample {
 				                          .filter(emp->empMap.entrySet().stream().allMatch(entry->!entry.getValue().getEmpName().equals(emp)))
 				                          .collect(Collectors.toList());
 		System.out.println(filteredList);	
-	
+		
+		// For example, i have an array list which has duplicate elements.
+		List<Integer> intList=Arrays.asList(1,2,3,2,6,7,5,3,1);
+		System.out.println(intList); // [1, 2, 3, 2, 6, 7, 5, 3, 1]
+		// WAP to Remove the duplicates and print the list using stream api
+		System.out.println(intList.stream()
+				                  .distinct()
+				                  .collect(Collectors.toList())); // [1, 2, 3, 6, 7, 5]			
+		// WAP to Print the duplicated list using stream api. 		
+		System.out.println(intList.stream()
+				                  .filter(i -> Collections.frequency(intList, i) >1)
+				                  .collect(Collectors.toSet())); // [1, 2, 3]
+		// WAP to Print the non duplicated list using stream api. 
+		System.out.println(intList.stream()
+				                  .filter(i -> Collections.frequency(intList, i) ==1)
+				                  .collect(Collectors.toList())); // [6, 7, 5]
+	   //  WAP to Print the frequency of elements present in the given list using stream api.
+		System.out.println(intList.stream().
+				                   collect(Collectors.groupingBy(Function.identity(),Collectors.counting()))); // {1=2, 2=2, 3=2, 5=1, 6=1, 7=1}
 	}
 }
 
