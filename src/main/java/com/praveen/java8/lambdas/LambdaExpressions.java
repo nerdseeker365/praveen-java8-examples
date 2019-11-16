@@ -12,7 +12,7 @@ import java.util.List;
  */
 public class LambdaExpressions {
 	public static void main(String[] args) {
-		Runnable r= () -> System.out.println("This in run method") ;
+		Runnable r= () -> System.out.println("This is in run method") ;
 		Thread t1 = new Thread(r);
 		t1.start();
 		Thread t = new Thread(new CodeToRun());
